@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import FilterBar from './lib/components/FilterBar'
+import Screen from "./lib/components/Screen";
+import FeaturedNews from "./lib/components/FeaturedNews";
+import BreakingNews from "./lib/components/BreakingNews";
+import data from './fakeData'
+import TeachNews from "./lib/components/TechNews";
+import PoliticalNews from "./lib/components/PoliticalNews";
+import EntertainmentNews from "./lib/components/EntertainmentNews";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    const breakingNews = data.filter(item => item.category === 'demo')
+    const teachNews = data.filter(item => item.category === 'teach-news')
+    const politicalNews = data.filter(item => item.category === 'political news')
+    const entertainmentNews = data.filter(item => item.category === 'entertainment news')
+    return <Screen>
+        <FilterBar/>
+        <FeaturedNews item={{
+            id: 2,
+            title: "",
+            description: "hello this is post",
+            category: 'test'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+        }}/>
+        <BreakingNews data={breakingNews}/>
+        <PoliticalNews data={politicalNews}/>
+        <TeachNews data={teachNews}/>
+        <EntertainmentNews data={entertainmentNews}/>
+    </Screen>
+}
